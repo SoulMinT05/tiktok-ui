@@ -6,6 +6,10 @@
     --black: #000;
     --text-color: #161823;
     --white: #fff;
+
+    //font
+    --font-family: 'TikTokFont', sans-serif;
+
     //Default layout
     --default-layout-header-height: 60px;
     --default-layout-width: 1150px;
@@ -24,7 +28,7 @@ html {
 
 body {
     // font-family: 'IBM Plex Sans', sans-serif;
-    font-family: 'TikTokFont', sans-serif;
+    font-family: var(--font-family);
     font-size: 1.6rem;
     line-height: 1.5;
     text-rendering: optimizeSpeed;
@@ -44,17 +48,17 @@ a[href] {
 
 //Fonts embeded tiktok
 @font-face {
-    font-family: TikTokFont;
+    font-family: var(--font-family);
     src: url('/assets/fonts/TikTokFont-Regular.woff2');
     font-weight: 400;
 }
 @font-face {
-    font-family: TikTokFont;
+    font-family: var(--font-family);
     src: url('/assets/fonts/TikTokFont-Semibold.woff2');
     font-weight: 600;
 }
 @font-face {
-    font-family: TikTokFont;
+    font-family: var(--font-family);
     src: url('/assets/fonts/TikTokFont-Bold.woff2');
     font-weight: 700;
 }
