@@ -17,12 +17,12 @@ import { Link } from 'react-router-dom';
 import images from '~/assets/images';
 import styles from './Header.module.scss';
 
-import routeConfig from '~/config/routes';
+import config from '~/config';
 import Button from '~/components/Button';
 import Menu from '~/components/Popper/Menu';
 import { InboxIcon, MessageIcon, UploadIcon } from '~/components/Icons';
 import Image from '~/components/Image';
-import Search from './Search';
+import Search from '~/layouts/components/Header/Search';
 
 const cx = classNames.bind(styles); //sẽ ghi - được, chứ styles không thì kh đc
 
@@ -98,7 +98,7 @@ function Header() {
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
-                <Link to={routeConfig.home} className={cx('logo-link')}>
+                <Link to={config.routes.home} className={cx('logo-link')}>
                     <img src={images.logo} alt="Tiktok" />
                 </Link>
 
@@ -148,7 +148,7 @@ function Header() {
                     >
                         {currentUser ? (
                             <Image
-                                src="https://p16-sign-va.tiktokcdn.com/tos-maliva-avt-0068/7dc789b28318e5489cfeeb1d39b35969~c5_100x100.jpeg?x-expires=1703934000&x-signature=y3wcZzAUDnPaTeQkQoM%2FAfL5s0Q%3D"
+                                src="https://p16-sign-va.tiktokcdn.com/tos-maliva-avt-0068/7dc789b28318e5489cfeeb1d39b35969~c5_100x100.jpeg?lk3s=a5d48078&x-expires=1704704400&x-signature=LrC5R6pdZ5QFIAh1AKRyPf8%2FdXc%3D"
                                 className={cx('user-avatar')}
                                 alt="HIEUTHUHAI"
                                 fallback="https://cdn.pixabay.com/photo/2017/02/12/21/29/false-2061131_640.png"
