@@ -1,16 +1,16 @@
 import { useEffect, useState, useRef } from 'react';
 import { faCircleXmark, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import HeadlessTippy from '@tippyjs/react/headless';
-import { Wrapper as PopperWrapper } from '~/components/Popper';
-import AccountItem from '~/components/AccountItem';
+import classNames from 'classnames/bind';
 
 import * as searchServices from '~/services/searchService';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Wrapper as PopperWrapper } from '~/components/Popper';
+import AccountItem from '~/components/AccountItem';
 import { SearchIcon } from '~/components/Icons';
 import { useDebounce } from '~/hooks';
-import classNames from 'classnames/bind';
 import styles from './Search.module.scss';
+
 const cx = classNames.bind(styles);
 
 function Search() {
@@ -22,6 +22,24 @@ function Search() {
     const debounced = useDebounce(searchValue, 500);
 
     const inputRef = useRef();
+
+    useEffect(() => {
+        if (!debounced.trim()) {
+            setSearchResult([]);
+            return;
+        }
+
+        const fetchApi = async () => {
+            setLoading(true);
+
+            const result = await searchServices.search(debounced);
+
+            setSearchResult(result);
+            setLoading(false);
+        };
+
+        fetchApi();
+    }, [debounced]);
 
     const handleClear = () => {
         setSearchValue('');
@@ -35,35 +53,17 @@ function Search() {
 
     const handleChange = (e) => {
         const searchValue = e.target.value;
-
         if (!searchValue.startsWith(' ')) {
             setSearchValue(searchValue);
         }
     };
 
-    useEffect(() => {
-        if (!debounced.trim()) {
-            setSearchResult([]);
-            return;
-        }
-
-        const fetchApi = async () => {
-            setLoading(true);
-
-            const result = await searchServices.search(debounced);
-            setSearchResult(result);
-
-            setLoading(false);
-        };
-        fetchApi();
-    }, [debounced]);
     return (
-        // Using a wrapper <div> tag around the reference
-        // element solves this by creating a new parentNode context
+        // Using a wrapper <div> tag around the reference element solves
+        // this by creating a new parentNode context.
         <div>
             <HeadlessTippy
                 interactive
-                appendTo={() => document.body}
                 visible={showResult && searchResult.length > 0}
                 render={(attrs) => (
                     <div
@@ -101,6 +101,7 @@ function Search() {
                             icon={faSpinner}
                         />
                     )}
+
                     <button
                         className={cx('search-btn')}
                         onMouseDown={(e) => e.preventDefault()}
