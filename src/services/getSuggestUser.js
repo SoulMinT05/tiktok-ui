@@ -1,11 +1,11 @@
 import * as httpRequest from '~/utils';
 
-export const search = async (q, type = 'less') => {
+export const getSuggestUser = async (per_page, page) => {
     try {
-        const res = await httpRequest.get('users/search', {
+        const res = await httpRequest.get('users/suggested', {
             params: {
-                q,
-                type,
+                per_page,
+                page,
             },
         });
         return res.data;
